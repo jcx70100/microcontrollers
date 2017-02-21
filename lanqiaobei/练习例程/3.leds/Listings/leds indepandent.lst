@@ -1,0 +1,56 @@
+C51 COMPILER V9.54   LEDS_INDEPANDENT                                                      02/09/2016 21:36:42 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE LEDS_INDEPANDENT
+OBJECT MODULE PLACED IN .\Objects\leds indepandent.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE leds indepandent.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\leds indepandent.lst) TABS(2) OBJECT(.\Objects\leds indepandent.obj)
+
+line level    source
+
+   1          //leds together
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          #include <self.h>
+   5          #define uint unsigned int
+   6          #define uchar unsigned char
+   7          #define delay_time 300
+   8          
+   9          code unsigned char duan[16] = {0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x83,0xc6,0xa1,0x86,
+             -0x8e};
+  10          code unsigned char wei[9] = {0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0xff};
+  11          
+  12          
+  13          void main()
+  14          {
+  15   1        uchar i=0;
+  16   1        while(1){
+  17   2          P0=duan[i%16];
+  18   2          U7_duan();
+  19   2          P0=wei[i%8];
+  20   2          U6_wei();
+  21   2          i++;
+  22   2          delay(delay_time);
+  23   2          /*if(i%8==0){
+  24   2            P0=duan[15];
+  25   2            U7_duan();
+  26   2            P0=wei[8];
+  27   2            U6_wei();
+  28   2            delay(delay_time);
+  29   2          }*/
+  30   2        }
+  31   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    224    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,82 @@
+C51 COMPILER V9.54   16________LED____                                                     02/09/2016 16:50:25 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE 16________LED____
+OBJECT MODULE PLACED IN .\Objects\16按键控制led亮法.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE 16按键控制led亮法.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\
+                    -Listings\16按键控制led亮法.lst) TABS(2) OBJECT(.\Objects\16按键控制led亮法.obj)
+
+line level    source
+
+   1          //瀹炵幇涓嶅悓鐨勬寜閿寜涓嬫樉绀轰笉鍚岀殑led鐐逛寒杩囩▼
+   2          
+   3          #include <reg52.h>
+   4          #include <intrins.h>
+   5          #include "self.h"
+   6          #define uint unsigned int
+   7          #define uchar unsigned char
+   8          #define delay_time 200
+   9          
+  10          sbit HC138A = P2^5;
+  11          sbit HC138B = P2^6;
+  12          sbit HC138C = P2^7;
+  13          
+  14          sbit S7 = P3^0;
+  15          sbit S6 = P3^1;
+  16          sbit S5 = P3^2;
+  17          sbit S4 = P3^3;
+  18          
+  19          void U6(void);
+  20          void led(uchar);
+  21          
+  22          
+  23          void U6(void)
+  24          {
+  25   1        HC138A=0;
+  26   1        HC138B=0;
+  27   1        HC138C=0;
+  28   1        _nop_();
+  29   1        HC138C=1;
+  30   1      }
+  31          
+  32          uchar value;
+  33          void main()
+  34          {
+  35   1        HC138C=0;HC138B=0;HC138A=0;
+  36   1        
+  37   1        while(1){
+  38   2          value=read_key16()+1;
+  39   2          led(value);
+  40   2          value=0;
+  41   2        }
+  42   1      }
+  43          
+  44          void led(uchar x)
+  45          {
+  46   1        uint j;
+  47   1        P0 = 0xff;
+  48   1        for(j=0;j<x;j++){
+  49   2          P0 = 0x00;
+  50   2          U6();
+  51   2          delay(delay_time);
+  52   2          P0 =0xff;
+  53   2          U6();
+  54   2          delay(delay_time);
+C51 COMPILER V9.54   16________LED____                                                     02/09/2016 16:50:25 PAGE 2   
+
+  55   2        }
+  56   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    255    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

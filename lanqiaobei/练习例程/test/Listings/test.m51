@@ -1,0 +1,289 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        03/19/2016  10:02:51  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\test.obj TO .\Objects\test PRINT (.\Listings\test.m51) RAMS
+>> IZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\test.obj (TEST)
+
+
+LINK MAP OF MODULE:  .\Objects\test (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?TEST
+            DATA    000CH     0001H     UNIT         _DATA_GROUP_
+                    000DH     0013H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?TEST
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0094H     UNIT         ?PR?READ_KEY16?TEST
+            CODE    0097H     0025H     UNIT         ?PR?_LEDS_CONTROL?TEST
+            CODE    00BCH     001EH     UNIT         ?PR?_DELAY?TEST
+            CODE    00DAH     0019H     UNIT         ?PR?MAIN?TEST
+            CODE    00F3H     0018H     UNIT         ?CO?TEST
+            CODE    010BH     000CH     UNIT         ?C_C51STARTUP
+            CODE    0117H     000CH     UNIT         ?PR?BEEF?TEST
+            CODE    0123H     000CH     UNIT         ?PR?DUANXUAN?TEST
+            CODE    012FH     000CH     UNIT         ?PR?WEIXUAN?TEST
+            CODE    013BH     0008H     UNIT         ?PR?LED?TEST
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\test (?C_STARTUP)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?TEST
+
+?PR?MAIN?TEST                  -----    -----
+  +--> ?PR?READ_KEY16?TEST
+  +--> ?PR?_LEDS_CONTROL?TEST
+  +--> ?PR?_DELAY?TEST
+
+?PR?READ_KEY16?TEST            000CH    0001H
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2016  10:02:51  PAGE 2
+
+
+
+?PR?_LEDS_CONTROL?TEST         -----    -----
+  +--> ?CO?TEST
+  +--> ?PR?WEIXUAN?TEST
+  +--> ?PR?DUANXUAN?TEST
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\test (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:010BH         SEGMENT       ?C_C51STARTUP
+  I:0021H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:010EH         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:010BH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:010BH         LINE#         133
+  C:010DH         LINE#         134
+  C:010EH         LINE#         135
+  C:010FH         LINE#         136
+  C:0111H         LINE#         185
+  C:0114H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        TEST
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  B:0020H.0       PUBLIC        key_re
+  D:00B0H         PUBLIC        P3
+  C:012FH         PUBLIC        weixuan
+  D:00A8H         PUBLIC        IE
+  C:0097H         PUBLIC        _leds_control
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2016  10:02:51  PAGE 3
+
+
+  C:00BCH         PUBLIC        _delay
+  C:0117H         PUBLIC        beef
+  D:00B8H         PUBLIC        IP
+  C:00DAH         PUBLIC        main
+  C:00F3H         PUBLIC        duan
+  C:0003H         PUBLIC        read_key16
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:013BH         PUBLIC        led
+  C:0103H         PUBLIC        wei
+  D:0009H         PUBLIC        key_value
+  D:000BH         PUBLIC        key_press
+  D:00C8H         PUBLIC        T2CON
+  C:0123H         PUBLIC        duanxuan
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:00BCH         LINE#         13
+  C:00BCH         LINE#         14
+  C:00BCH         LINE#         16
+  C:00C5H         LINE#         17
+  C:00D2H         LINE#         18
+  C:00D9H         LINE#         19
+  -------         ENDPROC       _DELAY
+  -------         PROC          READ_KEY16
+  -------         DO            
+  D:000CH         SYMBOL        key_temp
+  D:0008H         SYMBOL        col
+  -------         ENDDO         
+  C:0003H         LINE#         25
+  C:0003H         LINE#         26
+  C:0003H         LINE#         30
+  C:0006H         LINE#         31
+  C:000CH         LINE#         33
+  C:0010H         LINE#         34
+  C:0014H         LINE#         36
+  C:0017H         LINE#         38
+  C:001DH         LINE#         39
+  C:001DH         LINE#         40
+  C:001FH         LINE#         41
+  C:0021H         LINE#         42
+  C:0033H         LINE#         43
+  C:0033H         LINE#         44
+  C:0033H         LINE#         45
+  C:0036H         LINE#         46
+  C:0038H         LINE#         47
+  C:0038H         LINE#         48
+  C:003BH         LINE#         49
+  C:003DH         LINE#         50
+  C:003DH         LINE#         51
+  C:0040H         LINE#         52
+  C:0042H         LINE#         53
+  C:0042H         LINE#         54
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2016  10:02:51  PAGE 4
+
+
+  C:0045H         LINE#         55
+  C:0045H         LINE#         56
+  C:0045H         LINE#         57
+  C:0048H         LINE#         58
+  C:004EH         LINE#         59
+  C:005DH         LINE#         60
+  C:005DH         LINE#         61
+  C:005DH         LINE#         62
+  C:0068H         LINE#         63
+  C:006AH         LINE#         64
+  C:006AH         LINE#         65
+  C:006EH         LINE#         66
+  C:0070H         LINE#         67
+  C:0070H         LINE#         68
+  C:0074H         LINE#         69
+  C:0076H         LINE#         70
+  C:0076H         LINE#         71
+  C:0080H         LINE#         72
+  C:0080H         LINE#         73
+  C:0080H         LINE#         74
+  C:0080H         LINE#         76
+  C:0083H         LINE#         77
+  C:0089H         LINE#         78
+  C:008FH         LINE#         79
+  C:008FH         LINE#         80
+  C:0091H         LINE#         81
+  C:0094H         LINE#         82
+  C:0094H         LINE#         83
+  C:0096H         LINE#         84
+  -------         ENDPROC       READ_KEY16
+  -------         PROC          BEEF
+  C:0117H         LINE#         87
+  C:0117H         LINE#         88
+  C:0117H         LINE#         89
+  C:011AH         LINE#         90
+  C:011DH         LINE#         91
+  C:011EH         LINE#         92
+  C:011FH         LINE#         93
+  C:0122H         LINE#         94
+  -------         ENDPROC       BEEF
+  -------         PROC          DUANXUAN
+  C:0123H         LINE#         103
+  C:0123H         LINE#         104
+  C:0123H         LINE#         108
+  C:0126H         LINE#         109
+  C:0129H         LINE#         110
+  C:012AH         LINE#         111
+  C:012BH         LINE#         115
+  C:012EH         LINE#         116
+  -------         ENDPROC       DUANXUAN
+  -------         PROC          WEIXUAN
+  C:012FH         LINE#         118
+  C:012FH         LINE#         119
+  C:012FH         LINE#         123
+  C:0132H         LINE#         124
+  C:0135H         LINE#         125
+  C:0136H         LINE#         126
+BL51 BANKED LINKER/LOCATER V6.22                                                      03/19/2016  10:02:51  PAGE 5
+
+
+  C:0137H         LINE#         130
+  C:013AH         LINE#         131
+  -------         ENDPROC       WEIXUAN
+  -------         PROC          LED
+  C:013BH         LINE#         136
+  C:013BH         LINE#         137
+  C:013BH         LINE#         138
+  C:013EH         LINE#         139
+  C:013FH         LINE#         140
+  C:0142H         LINE#         141
+  -------         ENDPROC       LED
+  -------         PROC          _LEDS_CONTROL
+  D:0006H         SYMBOL        du
+  D:0004H         SYMBOL        we
+  C:0097H         LINE#         144
+  C:0097H         LINE#         147
+  C:0097H         LINE#         148
+  C:00A5H         LINE#         149
+  C:00A8H         LINE#         151
+  C:00ABH         LINE#         152
+  C:00B9H         LINE#         153
+  -------         ENDPROC       _LEDS_CONTROL
+  -------         PROC          MAIN
+  -------         DO            
+  D:0003H         SYMBOL        number
+  -------         ENDDO         
+  C:00DAH         LINE#         11
+  C:00DAH         LINE#         12
+  C:00DAH         LINE#         15
+  C:00DDH         LINE#         16
+  C:00DDH         LINE#         18
+  C:00E2H         LINE#         19
+  C:00EBH         LINE#         20
+  C:00F1H         LINE#         23
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TEST
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BEEF?TEST
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED?TEST
+
+Program Size: data=14.1 xdata=0 code=323
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

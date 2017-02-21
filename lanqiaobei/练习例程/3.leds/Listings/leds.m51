@@ -1,0 +1,306 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        02/10/2016  10:57:45  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\leds dongtai-zhongduan.obj TO .\Objects\leds PRINT (.\Listi
+>> ngs\leds.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\leds dongtai-zhongduan.obj (LEDS_DONGTAI_ZHONGDUAN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\leds (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?LEDS_DONGTAI_ZHONGDUAN
+            DATA    000CH     0001H     UNIT         ?DT?READ_KEY16?LEDS_DONGTAI_ZHONGDUAN
+                    000DH     0013H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?LEDS_DONGTAI_ZHONGDUAN
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+                    000EH     07F2H                  *** GAP ***
+            CODE    0800H     008EH     UNIT         ?PR?READ_KEY16?LEDS_DONGTAI_ZHONGDUAN
+            CODE    088EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    091AH     0041H     UNIT         ?PR?TIME0?LEDS_DONGTAI_ZHONGDUAN
+            CODE    095BH     0023H     UNIT         ?PR?DISPLAY?LEDS_DONGTAI_ZHONGDUAN
+            CODE    097EH     001EH     UNIT         ?PR?_DELAY?LEDS_DONGTAI_ZHONGDUAN
+            CODE    099CH     0019H     UNIT         ?CO?LEDS_DONGTAI_ZHONGDUAN
+            CODE    09B5H     0011H     UNIT         ?PR?MAIN?LEDS_DONGTAI_ZHONGDUAN
+            CODE    09C6H     0009H     UNIT         ?PR?U7_DUAN?LEDS_DONGTAI_ZHONGDUAN
+            CODE    09CFH     0009H     UNIT         ?PR?U6_WEI?LEDS_DONGTAI_ZHONGDUAN
+            CODE    09D8H     0008H     UNIT         ?PR?U4_LED?LEDS_DONGTAI_ZHONGDUAN
+            CODE    09E0H     0004H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\leds (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?LEDS_DONGTAI_ZHONGDUAN
+  +--> ?C_INITSEG
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/10/2016  10:57:45  PAGE 2
+
+
+*** NEW ROOT ***************************************************
+
+?PR?TIME0?LEDS_DONGTAI_ZHONGDUAN
+  +--> ?PR?DISPLAY?LEDS_DONGTAI_ZHONGDUAN
+
+?PR?DISPLAY?LEDS_DONGTAI_ZHONGDUAN
+  +--> ?CO?LEDS_DONGTAI_ZHONGDUAN
+  +--> ?PR?U7_DUAN?LEDS_DONGTAI_ZHONGDUAN
+  +--> ?PR?U6_WEI?LEDS_DONGTAI_ZHONGDUAN
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\leds (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:088EH         SEGMENT       ?C_C51STARTUP
+  I:0021H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0891H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:088EH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:088EH         LINE#         133
+  C:0890H         LINE#         134
+  C:0891H         LINE#         135
+  C:0892H         LINE#         136
+  C:0894H         LINE#         185
+  C:0897H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        LEDS_DONGTAI_ZHONGDUAN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  B:0020H.0       PUBLIC        key_re
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/10/2016  10:57:45  PAGE 3
+
+
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:00A8H         PUBLIC        IE
+  C:097EH         PUBLIC        _delay
+  C:09C6H         PUBLIC        U7_duan
+  D:00B8H         PUBLIC        IP
+  C:09B5H         PUBLIC        main
+  C:099CH         PUBLIC        duan
+  C:0800H         PUBLIC        read_key16
+  C:09CFH         PUBLIC        U6_wei
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  C:09D8H         PUBLIC        U4_LED
+  C:09ACH         PUBLIC        wei
+  B:00A8H.1       PUBLIC        ET0
+  D:0009H         PUBLIC        key_value
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:000AH         PUBLIC        key_press
+  C:091AH         PUBLIC        TIME0
+  D:00C8H         PUBLIC        T2CON
+  D:000BH         PUBLIC        i
+  C:095BH         PUBLIC        display
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0006H         SYMBOL        i
+  D:0004H         SYMBOL        j
+  -------         ENDDO         
+  C:097EH         LINE#         7
+  C:097EH         LINE#         8
+  C:097EH         LINE#         10
+  C:0987H         LINE#         11
+  C:0994H         LINE#         12
+  C:099BH         LINE#         13
+  -------         ENDPROC       _DELAY
+  -------         PROC          READ_KEY16
+  -------         DO            
+  D:000CH         SYMBOL        key_temp
+  D:0008H         SYMBOL        col
+  -------         ENDDO         
+  C:0800H         LINE#         19
+  C:0800H         LINE#         20
+  C:0800H         LINE#         24
+  C:0803H         LINE#         25
+  C:0809H         LINE#         27
+  C:080DH         LINE#         28
+  C:0811H         LINE#         30
+  C:0814H         LINE#         32
+  C:081AH         LINE#         33
+  C:081AH         LINE#         34
+  C:081CH         LINE#         35
+  C:081EH         LINE#         36
+  C:0830H         LINE#         37
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/10/2016  10:57:45  PAGE 4
+
+
+  C:0830H         LINE#         38
+  C:0830H         LINE#         39
+  C:0833H         LINE#         40
+  C:0835H         LINE#         41
+  C:0835H         LINE#         42
+  C:0838H         LINE#         43
+  C:083AH         LINE#         44
+  C:083AH         LINE#         45
+  C:083DH         LINE#         46
+  C:083FH         LINE#         47
+  C:083FH         LINE#         48
+  C:0842H         LINE#         49
+  C:0842H         LINE#         50
+  C:0842H         LINE#         51
+  C:0845H         LINE#         52
+  C:084BH         LINE#         53
+  C:085AH         LINE#         54
+  C:085AH         LINE#         55
+  C:085AH         LINE#         56
+  C:085FH         LINE#         57
+  C:0861H         LINE#         58
+  C:0861H         LINE#         59
+  C:0867H         LINE#         60
+  C:0869H         LINE#         61
+  C:0869H         LINE#         62
+  C:086FH         LINE#         63
+  C:0871H         LINE#         64
+  C:0871H         LINE#         65
+  C:0877H         LINE#         66
+  C:0877H         LINE#         67
+  C:0877H         LINE#         68
+  C:0877H         LINE#         70
+  C:087AH         LINE#         71
+  C:0880H         LINE#         72
+  C:0886H         LINE#         73
+  C:0886H         LINE#         74
+  C:0888H         LINE#         75
+  C:088BH         LINE#         76
+  C:088BH         LINE#         77
+  C:088DH         LINE#         78
+  -------         ENDPROC       READ_KEY16
+  -------         PROC          U7_DUAN
+  C:09C6H         LINE#         88
+  C:09C6H         LINE#         89
+  C:09C6H         LINE#         93
+  C:09C9H         LINE#         94
+  C:09CAH         LINE#         95
+  C:09CBH         LINE#         99
+  C:09CEH         LINE#         100
+  -------         ENDPROC       U7_DUAN
+  -------         PROC          U6_WEI
+  C:09CFH         LINE#         102
+  C:09CFH         LINE#         103
+  C:09CFH         LINE#         107
+  C:09D2H         LINE#         108
+  C:09D3H         LINE#         109
+  C:09D4H         LINE#         113
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/10/2016  10:57:45  PAGE 5
+
+
+  C:09D7H         LINE#         114
+  -------         ENDPROC       U6_WEI
+  -------         PROC          U4_LED
+  C:09D8H         LINE#         118
+  C:09D8H         LINE#         119
+  C:09D8H         LINE#         120
+  C:09DBH         LINE#         121
+  C:09DCH         LINE#         122
+  C:09DFH         LINE#         123
+  -------         ENDPROC       U4_LED
+  -------         PROC          MAIN
+  C:09B5H         LINE#         12
+  C:09B5H         LINE#         13
+  C:09B5H         LINE#         14
+  C:09B8H         LINE#         15
+  C:09BBH         LINE#         16
+  C:09BEH         LINE#         17
+  C:09C0H         LINE#         18
+  C:09C2H         LINE#         19
+  C:09C4H         LINE#         21
+  C:09C4H         LINE#         24
+  -------         ENDPROC       MAIN
+  -------         PROC          TIME0
+  C:091AH         LINE#         27
+  C:0937H         LINE#         31
+  C:093AH         LINE#         32
+  C:093DH         LINE#         33
+  C:0940H         LINE#         36
+  -------         ENDPROC       TIME0
+  -------         PROC          DISPLAY
+  C:095BH         LINE#         38
+  C:095BH         LINE#         39
+  C:095BH         LINE#         40
+  C:0963H         LINE#         41
+  C:0966H         LINE#         42
+  C:096EH         LINE#         43
+  C:0971H         LINE#         44
+  C:0973H         LINE#         45
+  C:097AH         LINE#         46
+  C:097DH         LINE#         53
+  C:097DH         LINE#         55
+  -------         ENDPROC       DISPLAY
+  -------         ENDMOD        LEDS_DONGTAI_ZHONGDUAN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY?LEDS_DONGTAI_ZHONGDUAN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_KEY16?LEDS_DONGTAI_ZHONGDUAN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?U4_LED?LEDS_DONGTAI_ZHONGDUAN
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0169H BYTE (17%) *
+******************************************************************************
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/10/2016  10:57:45  PAGE 6
+
+
+Program Size: data=14.1 xdata=0 code=490
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,82 @@
+C51 COMPILER V9.54   LEDS_DONGTAI_ZHONGDUAN                                                02/10/2016 10:57:45 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE LEDS_DONGTAI_ZHONGDUAN
+OBJECT MODULE PLACED IN .\Objects\leds dongtai-zhongduan.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE leds dongtai-zhongduan.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRI
+                    -NT(.\Listings\leds dongtai-zhongduan.lst) TABS(2) OBJECT(.\Objects\leds dongtai-zhongduan.obj)
+
+line level    source
+
+   1          #include <reg52.h>
+   2          #include <intrins.h>
+   3          #include <self.h>
+   4          #define uint unsigned int
+   5          #define uchar unsigned char
+   6          //#define delay_time 3
+   7          
+   8          code unsigned char duan[16] = {0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x83,0xc6,0xa1,0x86,
+             -0x8e};
+   9          code unsigned char wei[9] = {0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0xff};
+  10          uchar i=0;
+  11          void display(void);
+  12          void main()
+  13          {
+  14   1        TMOD|=0x01;
+  15   1        TH0=(65536-2000)/256;
+  16   1        TL0=(65536-2000)%256;
+  17   1        EA=1;
+  18   1        ET0=1;
+  19   1        TR0=1;
+  20   1      
+  21   1        while(1){
+  22   2          
+  23   2          
+  24   2        }
+  25   1      }
+  26          
+  27          void TIME0(void) interrupt 1
+  28          {
+  29   1        //EA=0;
+  30   1        //TR0=0;
+  31   1        TH0=(65536-2000)/256;
+  32   1        TL0=(65536-2000)%256;
+  33   1        display();
+  34   1        //TR0=1;
+  35   1        //EA=1;
+  36   1      }
+  37          
+  38          void display(void)
+  39          {
+  40   1          P0=duan[i];
+  41   1          U7_duan();
+  42   1          P0=wei[i];
+  43   1          U6_wei();
+  44   1          i++;
+  45   1          if(i>=8){
+  46   2            i=0;
+  47   2            /*P0=duan[15];
+  48   2            U7_duan();
+  49   2            P0=wei[8];
+  50   2            U6_wei();
+  51   2            delay(delay_time);
+  52   2          }*/
+  53   2        }
+C51 COMPILER V9.54   LEDS_DONGTAI_ZHONGDUAN                                                02/10/2016 10:57:45 PAGE 2   
+
+  54   1        
+  55   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    315    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

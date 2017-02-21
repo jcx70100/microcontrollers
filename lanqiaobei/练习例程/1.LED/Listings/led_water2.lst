@@ -1,0 +1,94 @@
+C51 COMPILER V9.52.0.0   LED_WATER2                                                        03/16/2016 21:59:48 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED_WATER2
+OBJECT MODULE PLACED IN .\Objects\led_water2.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE led_water2.c BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\led_water2.lst) TAB
+                    -S(2) OBJECT(.\Objects\led_water2.obj)
+
+line level    source
+
+   1          //实现8个led流水灯
+   2          
+   3          #include <stc15f2k60s2.h>
+*** WARNING C318 IN LINE 3 OF led_water2.c: can't open file 'stc15f2k60s2.h'
+   4          #include <key.h>
+*** WARNING C318 IN LINE 4 OF led_water2.c: can't open file 'key.h'
+   5          //#include <reg52.h>
+   6          #include <intrins.h>
+   7          #define uint unsigned int
+   8          #define uchar unsigned char
+   9          #define delaytime 300
+  10          
+  11          
+  12          sbit HC138A = P2^5;
+*** ERROR C202 IN LINE 12 OF led_water2.c: 'P2': undefined identifier
+  13          sbit HC138B = P2^6;
+*** ERROR C202 IN LINE 13 OF led_water2.c: 'P2': undefined identifier
+  14          sbit HC138C = P2^7;
+*** ERROR C202 IN LINE 14 OF led_water2.c: 'P2': undefined identifier
+  15          
+  16          void delay(uint x)
+  17          {
+  18   1        uint i,j;
+  19   1        for(i=x;i>0;i--){
+  20   2          for(j=110;j>0;j--);
+  21   2        }
+  22   1      }
+  23          
+  24          
+  25          void LED_HC138(void)
+  26          {
+  27   1        HC138C = 1;
+*** ERROR C202 IN LINE 27 OF led_water2.c: 'HC138C': undefined identifier
+  28   1        HC138B = 0;
+*** ERROR C202 IN LINE 28 OF led_water2.c: 'HC138B': undefined identifier
+  29   1        HC138A = 0;
+*** ERROR C202 IN LINE 29 OF led_water2.c: 'HC138A': undefined identifier
+  30   1        _nop_();
+  31   1        HC138C = 0;
+*** ERROR C202 IN LINE 31 OF led_water2.c: 'HC138C': undefined identifier
+  32   1      }
+  33          
+  34          void main(void)
+  35          {
+  36   1        uint i;
+  37   1        HC138C = 0;
+*** ERROR C202 IN LINE 37 OF led_water2.c: 'HC138C': undefined identifier
+  38   1        HC138B = 0;
+*** ERROR C202 IN LINE 38 OF led_water2.c: 'HC138B': undefined identifier
+  39   1        HC138A = 0;
+*** ERROR C202 IN LINE 39 OF led_water2.c: 'HC138A': undefined identifier
+  40   1        while(1){
+  41   2          P0 = 0xff;
+*** ERROR C202 IN LINE 41 OF led_water2.c: 'P0': undefined identifier
+C51 COMPILER V9.52.0.0   LED_WATER2                                                        03/16/2016 21:59:48 PAGE 2   
+
+  42   2          LED_HC138();
+  43   2          delay(delaytime);
+  44   2          for(i=0;i<8;i++){
+  45   3            P0 = _crol_(0xfe,i);
+*** ERROR C202 IN LINE 45 OF led_water2.c: 'P0': undefined identifier
+  46   3            LED_HC138();
+  47   3            delay(delaytime);
+  48   3          }
+  49   2          P0 = 0xff;
+*** ERROR C202 IN LINE 49 OF led_water2.c: 'P0': undefined identifier
+  50   2          LED_HC138();
+  51   2          delay(delaytime);
+  52   2          P0 = 0x00;
+*** ERROR C202 IN LINE 52 OF led_water2.c: 'P0': undefined identifier
+  53   2          LED_HC138();
+  54   2          delay(delaytime);
+  55   2          P0 = 0xff;
+*** ERROR C202 IN LINE 55 OF led_water2.c: 'P0': undefined identifier
+  56   2          LED_HC138();
+  57   2          delay(delaytime);
+  58   2          P0 = 0x00;
+*** ERROR C202 IN LINE 58 OF led_water2.c: 'P0': undefined identifier
+  59   2          LED_HC138();
+  60   2          delay(delaytime);
+  61   2        }
+  62   1      }
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  16 ERROR(S)

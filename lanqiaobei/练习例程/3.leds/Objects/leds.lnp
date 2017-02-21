@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\leds dongtai-zhongduan.obj" 
+TO ".\Objects\leds" 
+PRINT(".\Listings\leds.m51") RAMSIZE(256) 

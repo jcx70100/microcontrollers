@@ -1,0 +1,76 @@
+C51 COMPILER V9.54   LEDS_TOGETHER                                                         02/09/2016 20:39:52 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE LEDS_TOGETHER
+OBJECT MODULE PLACED IN .\Objects\leds together.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE leds together.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\leds together.lst) TABS(2) OBJECT(.\Objects\leds together.obj)
+
+line level    source
+
+   1          //leds together
+   2          #include <reg52.h>
+   3          #include <intrins.h>
+   4          #include <self.h>
+   5          #define uint unsigned int
+   6          #define uchar unsigned char
+   7          #define delay_time 300
+   8          
+   9          code unsigned char duan[16] = {0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x83,0xc6,0xa1,0x86,
+             -0x8e};
+  10          code unsigned char wei[9] = {0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0xff};
+  11          
+  12          /*sbit  HC138A = P2^5;
+  13          sbit  HC138B = P2^6;
+  14          sbit  HC138C = P2^7;  
+  15          
+  16          void U7_duan(void)
+  17          {
+  18            HC138C=1;
+  19            HC138B=1;
+  20            HC138A=1;
+  21            _nop_();
+  22            HC138C=0;
+  23            HC138B=0;
+  24            HC138A=0;
+  25          }
+  26          
+  27          void U6_wei(void)
+  28          {
+  29            HC138C=1;
+  30            HC138B=1;
+  31            HC138A=0;
+  32            _nop_();
+  33            HC138C=0;
+  34            HC138B=0;
+  35            HC138A=0;
+  36          }
+  37          */
+  38          void main()
+  39          {
+  40   1        uchar i=0;
+  41   1        while(1){
+  42   2          P0=duan[i%16];
+  43   2          U7_duan();
+  44   2          P0=wei[8];
+  45   2          U6_wei();
+  46   2          i++;
+  47   2          delay(delay_time);
+  48   2        }
+  49   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    222    ----
+C51 COMPILER V9.54   LEDS_TOGETHER                                                         02/09/2016 20:39:52 PAGE 2   
+
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

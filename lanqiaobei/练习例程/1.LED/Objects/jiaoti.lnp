@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\led_water2.obj" 
+TO ".\Objects\jiaoti" 
+PRINT(".\Listings\jiaoti.m51") RAMSIZE(256) 
