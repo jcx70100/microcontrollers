@@ -1,0 +1,214 @@
+C51 COMPILER V9.52.0.0   EX16                                                              08/24/2015 19:42:11 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE EX16
+OBJECT MODULE PLACED IN ex16.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\C51\BIN\C51.EXE ex16.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*******************************************************************************  
+   2          * 文件名称：数码管控制实验
+   3          * 实验目的：1.掌握数码管动态扫描的基本原理,掌握数码管消除“鬼影”的方法
+   4          *           2.掌握51单片机定时器工作模式和配置方法
+   5          *           3.掌握keil uvision集成开发环境下，中断服务函数设计方法
+   6          * 程序说明：无
+   7          * 日期版本：2015-8   NUAA 
+   8          *******************************************************************************/
+   9          
+  10          #include "reg52.h"  //定义51单片机特殊功能寄存器
+  11          #include "intrins.h"
+  12          
+  13          sbit  HC138A = P2^5;
+  14          sbit  HC138B = P2^6;
+  15          sbit  HC138C = P2^7;               
+  16          
+  17          //以下是P25 P26 P27变化对应使Y0-Y7为0
+  18          #define  Y0   0x1f 
+  19          #define  Y1   0x3f     
+  20          #define  Y2   0x5f  
+  21          #define  Y3   0x7f 
+  22          #define  Y4   0x9f 
+  23          #define  Y5   0xbf 
+  24          #define  Y6   0xdf   
+  25          #define  Y7   0xff   
+  26          
+  27                                         //0    1    2    3    4    5    6    7    8    9    a    b   c    d    e   
+             - f
+  28          code unsigned char duan[16] = {0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x83,0xc6,0xa1,0x86,
+             -0x8e};
+  29          code unsigned char wei[9] = {0x01,0x02,0x04,0x08,0x10,0x20,0x40,0x80,0xff};
+  30          
+  31          
+  32          bit key_re;
+  33          unsigned char key_press;
+  34          unsigned char key_value;
+  35          
+  36          bit key_flag;
+  37          unsigned char intr;
+  38          
+  39          unsigned char read_keyboard(void);
+  40          void key_proc(unsigned char key);
+  41          void U6suocun(void);
+  42          
+  43          
+  44          //段锁存器锁存
+  45          void U7suocun(void) //LED对应锁存器U7控制端LE 从高位变为低位
+  46          {
+  47   1           //Y7 为0  其他为高
+  48   1               P2 = Y7;
+  49   1           _nop_();
+  50   1           _nop_();
+  51   1           P2 = Y0;
+  52   1           //Y7 为1 （此时只有Y0是0 不过Y0在板子上没有用到）
+  53   1      }
+C51 COMPILER V9.52.0.0   EX16                                                              08/24/2015 19:42:11 PAGE 2   
+
+  54          
+  55          
+  56          //位锁存器锁存
+  57          void U8suocun(void) //LED对应锁存器U8控制端LE 从高位变为低位
+  58          {
+  59   1          //Y6 为0  其他为高
+  60   1              P2 = Y6;
+  61   1          _nop_();
+  62   1              _nop_();
+  63   1              P2 = Y0;
+  64   1          //Y6 为1 （此时只有Y0是0 不过Y0在板子上没有用到）
+  65   1      }
+  66          
+  67          
+  68          //主函数
+  69          void main(void)
+  70          { 
+  71   1          unsigned char key_temp = 0xff;
+  72   1          
+  73   1          TMOD |= 0x01;//配置定时器0工作模式 模式1 16位计数器
+  74   1          TH0 = (65536-2000)/256;
+  75   1          TL0 = (65536-2000)%256;  
+  76   1          EA = 1;  //打开总中断
+  77   1          ET0 = 1; //打开定时器0中断
+  78   1          TR0 = 1; //启动定时器0
+  79   1              
+  80   1          while(1)
+  81   1          {
+  82   2              if(key_flag)
+  83   2              {
+  84   3                  key_flag = 0;
+  85   3                  key_temp = read_keyboard();//20ms 进来扫描一次
+  86   3              } 
+  87   2              key_proc(key_temp);//对应按键按下的操作      
+  88   2              key_temp = 0xff;//清除旧键值
+  89   2          }
+  90   1      }
+  91          
+  92          
+  93          //定时器中断服务函数
+  94          void isr_timer_0(void)  interrupt 1  //默认中断优先级 1
+  95          {
+  96   1          TH0 = (65536-2000)/256;
+  97   1          TL0 = (65536-2000)%256; //定时器重载 
+  98   1           
+  99   1              if(++intr == 10)  //2ms执行一次
+ 100   1              {
+ 101   2              intr = 0;
+ 102   2                      key_flag = 1;//20ms按键扫描标志位置1
+ 103   2          }
+ 104   1      }
+ 105          
+ 106          
+ 107          
+ 108          //读取矩阵键盘键值 返回的就是按键的对应值 0-15
+ 109          unsigned char read_keyboard(void)
+ 110          {
+ 111   1          unsigned char key_temp;
+ 112   1          static unsigned char col;
+ 113   1          
+ 114   1              P3 = 0xf0;    
+ 115   1          key_temp = (P3&0xf0);
+C51 COMPILER V9.52.0.0   EX16                                                              08/24/2015 19:42:11 PAGE 3   
+
+ 116   1           
+ 117   1          if(key_temp != 0xf0) //有按键按下
+ 118   1              key_press++;
+ 119   1              else
+ 120   1                      key_press = 0;//抖动
+ 121   1              
+ 122   1          if(key_press == 3) //连续三次都是有按键按下 则确定为有按键按下
+ 123   1          {
+ 124   2                      key_press = 0;
+ 125   2                      key_re = 1;
+ 126   2                      switch(key_temp)
+ 127   2              {
+ 128   3                  case 0x70:
+ 129   3                      col = 1;  //第一列按键按下
+ 130   3                      break;                
+ 131   3                  case 0xb0:
+ 132   3                      col = 2;  //第二列按键按下
+ 133   3                      break;    
+ 134   3                  case 0xd0:
+ 135   3                      col = 3;  //第三列按键按下
+ 136   3                      break;    
+ 137   3                  case 0xe0:
+ 138   3                      col = 4;  //第四列按键按下
+ 139   3                      break;
+ 140   3              }
+ 141   2              P3 = 0x0f;
+ 142   2              key_temp = (P3&0x0f);
+ 143   2                      switch(key_temp)
+ 144   2              {
+ 145   3                  case 0x0e:
+ 146   3                      key_value = (col-1);   //第一行按键按下
+ 147   3                      break;                
+ 148   3                  case 0x0d:
+ 149   3                      key_value = (3+col);   //第二行按键按下
+ 150   3                      break;    
+ 151   3                  case 0x0b:
+ 152   3                      key_value = (7+col);   //第三行按键按下
+ 153   3                      break;    
+ 154   3                  case 0x07:
+ 155   3                      key_value = (11+col);  //第四行按键按下
+ 156   3                      break;
+ 157   3              }
+ 158   2          }
+ 159   1          //连续三次检测到按键被按下，并且该按键已经释放
+ 160   1              P3 = 0x0f;
+ 161   1              key_temp = (P3&0x0f);
+ 162   1          if((key_re == 1) && (key_temp == 0x0f))
+ 163   1          {
+ 164   2              key_re = 0;
+ 165   2              return key_value;
+ 166   2          }
+ 167   1          return 0xff;  //无按键按下或被按下的按键未被释放 
+ 168   1      }
+ 169          
+ 170          
+ 171          //按键处理函数 
+ 172          void key_proc(unsigned char key)
+ 173          {
+ 174   1         
+ 175   1              if(key != 0xff)
+ 176   1              {
+ 177   2                      P0=wei[0];
+C51 COMPILER V9.52.0.0   EX16                                                              08/24/2015 19:42:11 PAGE 4   
+
+ 178   2              U8suocun();//送位数据和位锁存
+ 179   2              P0=duan[key];
+ 180   2              U7suocun();//送段数据和段锁存
+ 181   2          }
+ 182   1              
+ 183   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    244    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

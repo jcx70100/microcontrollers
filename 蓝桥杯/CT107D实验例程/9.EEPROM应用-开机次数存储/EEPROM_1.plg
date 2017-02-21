@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\Documents and Settings\Administrator\桌面\CT107D单片机实训平台实验例程V0.91\9.EEPROM应用-开机次数存储\EEPROM_1.uvproj
+Project File Date:  04/26/2015
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ex9.c...
+compiling i2c.c...
+linking...
+Program Size: data=19.0 xdata=0 code=604
+creating hex file from "EEPROM_1"...
+"EEPROM_1" - 0 Error(s), 0 Warning(s).

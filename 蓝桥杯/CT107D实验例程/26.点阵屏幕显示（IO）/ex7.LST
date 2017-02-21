@@ -1,0 +1,128 @@
+C51 COMPILER V9.52.0.0   EX7                                                               08/25/2015 15:52:03 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE EX7
+OBJECT MODULE PLACED IN ex7.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\C51\BIN\C51.EXE ex7.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*******************************************************************************  
+   2          * 文件名称：点阵屏幕显示实验
+   3          * 实验目的：1.掌握点阵屏动态扫描的基本原理
+   4          *           2.掌握51单片机定时器工作模式和配置方法
+   5          *           3.掌握keil uvision集成开发环境下，中断服务函数设计方法
+   6          * 程序说明：无  8X8点阵屏只能显示数字和简单字。
+   7          
+   8          * 日期版本：2015-8 NUAA   
+   9          *******************************************************************************/
+  10          
+  11          #include "reg52.h"  //定义51单片机特殊功能寄存器
+  12          #include "intrins.h"
+  13          
+  14          sbit  HC138A = P2^5;
+  15          sbit  HC138B = P2^6;
+  16          sbit  HC138C = P2^7;               
+  17          
+  18          
+  19          //以下是P25 P26 P27变化对应使Y0-Y7为0
+  20          #define  Y0   0x1f 
+  21          #define  Y1   0x3f     
+  22          #define  Y2   0x5f  
+  23          #define  Y3   0x7f 
+  24          #define  Y4   0x9f 
+  25          #define  Y5   0xbf 
+  26          #define  Y6   0xdf   
+  27          #define  Y7   0xff   
+  28          
+  29          //汉字的取模编码: 横向取模，1是点亮, 低位在前面  字节倒序
+  30          code unsigned char zimo[8] = {0x7E,0x5A,0x3C,0x18,0x18,0x18,0x3C,0xFF};
+  31          
+  32          
+  33          //行选： 从上到下，上面为低位。 0是选中。
+  34          code unsigned char hang[8] = {0xfe,0xfd,0xfb,0xf7,0xef,0xdf,0xbf,0x7f};
+  35          
+  36          
+  37          unsigned char i = 0;
+  38          void display(void);
+  39          void U7suocun(void);
+  40          void U8suocun(void);
+  41          
+  42          
+  43          //字模锁存器锁存
+  44          void U7suocun(void) //LED对应锁存器U7控制端LE 从高位变为低位
+  45          {
+  46   1           //Y7 为0  其他为高
+  47   1               P2 = Y7;
+  48   1           _nop_();
+  49   1           _nop_();
+  50   1           P2 = Y0;
+  51   1           //Y7 为1 （此时只有Y0是0 不过Y0在板子上没有用到）
+  52   1      }
+  53          
+  54          
+  55          //行选锁存器锁存
+C51 COMPILER V9.52.0.0   EX7                                                               08/25/2015 15:52:03 PAGE 2   
+
+  56          void U8suocun(void) //LED对应锁存器U8控制端LE 从高位变为低位
+  57          {
+  58   1          //Y6 为0  其他为高
+  59   1              P2 = Y6;
+  60   1          _nop_();
+  61   1              _nop_();
+  62   1              P2 = Y0;
+  63   1          //Y6 为1 （此时只有Y0是0 不过Y0在板子上没有用到）
+  64   1      }
+  65          
+  66          //主函数
+  67          void main(void)
+  68          { 
+  69   1       
+  70   1              TMOD |= 0x01;  //配置定时器0工作模式 16位寄存器模式
+  71   1          TH0 = (65536-2000)/256;
+  72   1          TL0 = (65536-2000)%256;  
+  73   1          EA = 1;
+  74   1          ET0 = 1; //打开定时器0中断
+  75   1          TR0 = 1;  //启动定时器0
+  76   1          while(1)
+  77   1          {
+  78   2                      
+  79   2          }
+  80   1              
+  81   1      }
+  82          
+  83          //定时器中断服务函数
+  84          void isr_timer_0(void)  interrupt 1 //默认中断优先级 1
+  85          {
+  86   1          TH0 = (65536-2000)/256;
+  87   1          TL0 = (65536-2000)%256;//定时器重载 
+  88   1              display();  //5ms执行一次
+  89   1      }
+  90          
+  91          
+  92          //显示函数
+  93          void display(void)
+  94          {   
+  95   1        
+  96   1         P0=zimo[i];
+  97   1         U7suocun();//字模锁存操作
+  98   1         P0=hang[i];
+  99   1         U8suocun();//行锁存操作
+ 100   1         i++;
+ 101   1         if(i>=8)
+ 102   1                 i=0; 
+ 103   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    135    ----
+   CONSTANT SIZE    =     16    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

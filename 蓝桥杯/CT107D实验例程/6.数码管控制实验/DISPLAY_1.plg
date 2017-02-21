@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\Documents and Settings\Administrator\桌面\STC51单片机组资料包\CT107D单片机综合训练平台(官方板子全部资料)\实验例程\6.数码管控制实验\DISPLAY_1.uvproj
+Project File Date:  10/23/2012
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ex6.c...
+ex6.c(17): warning C280: 'i': unreferenced local variable
+linking...
+Program Size: data=10.0 xdata=0 code=42
+creating hex file from "DISPLAY_1"...
+"DISPLAY_1" - 0 Error(s), 1 Warning(s).

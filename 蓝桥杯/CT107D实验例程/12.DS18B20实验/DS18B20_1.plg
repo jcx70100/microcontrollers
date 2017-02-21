@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\Documents and Settings\Administrator\桌面\STC51单片机组资料包\CT107D单片机综合训练平台(官方板子全部资料)\实验例程\12.DS18B20实验\DS18B20_1.uvproj
+Project File Date:  11/14/2014
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling STARTUP.A51...
+compiling ex12.c...
+compiling onewire.c...
+linking...
+Program Size: data=20.2 xdata=0 code=531
+creating hex file from "DS18B20_1"...
+"DS18B20_1" - 0 Error(s), 0 Warning(s).

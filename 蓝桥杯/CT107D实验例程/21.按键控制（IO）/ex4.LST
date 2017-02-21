@@ -1,0 +1,133 @@
+C51 COMPILER V9.52.0.0   EX4                                                               08/23/2015 15:03:50 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE EX4
+OBJECT MODULE PLACED IN ex4.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\C51\BIN\C51.EXE ex4.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*******************************************************************************  
+   2          * 文件名称：按键控制实验
+   3          * 实验目的：1.掌握单片机IO口操作的基本方法 
+   4          *           2.掌握C51关键字"sbit"的用法
+   5          *           2.掌握单片机常见外围驱动电路的设计方法 
+   6          * 程序说明：使用程序前，将跳线J5调整为BTN模式独立按键模式  J13选择为IO模式  带软件消抖
+   7             扫描的方法处理S4 S5 S6 S7的按键操作。
+   8          * 日期版本：2015 NUAA  
+   9          *******************************************************************************/
+  10          
+  11          #include "reg52.h"  //定义51单片机特殊功能寄存器
+  12          #include "intrins.h"
+  13          
+  14          /** 独立按键接口 */
+  15          sbit S7  = P3^0;
+  16          sbit S6  = P3^1;
+  17          sbit S5  = P3^2;
+  18          sbit S4  = P3^3;
+  19          
+  20          sbit  HC138A = P2^5;
+  21          sbit  HC138B = P2^6;
+  22          sbit  HC138C = P2^7;
+  23          
+  24          //延时函数 软件延时
+  25          void delay(int ms) //10ms一次
+  26          {
+  27   1          unsigned char i,j;
+  28   1          for(i=0; i<220; i++)
+  29   1          {
+  30   2              for(j=0; j<ms; j++)
+  31   2              {
+  32   3                  ;
+  33   3              }
+  34   2          } 
+  35   1      }
+  36          void U6suocun(void) //LED对应锁存器U6控制端LE 从高位变为低位
+  37          {
+  38   1         HC138A = 0;
+  39   1         HC138B = 0;
+  40   1         HC138C = 1; //Y4 为0  其他为高
+  41   1         _nop_();
+  42   1         _nop_();
+  43   1         HC138A = 0;
+  44   1         HC138B = 0;
+  45   1         HC138C = 0; //Y4 为1 （此时只有Y0是0 不过Y0在板子上没有用到）
+  46   1        
+  47   1      }
+  48          
+  49          
+  50          
+  51          //主函数
+  52          void main(void)
+  53          {    
+  54   1              unsigned char i;
+  55   1              //把要显示的方式写成数组，可以实现花样流水灯
+C51 COMPILER V9.52.0.0   EX4                                                               08/23/2015 15:03:50 PAGE 2   
+
+  56   1              char temp[4] = {0x7f,0xbf,0xdf,0xef}; //把要点亮的方式写成数组
+  57   1              
+  58   1          HC138A = 0;
+  59   1          HC138B = 0;
+  60   1          HC138C = 0; //初始化 
+  61   1              S4 = 1;
+  62   1          S5 = 1;
+  63   1          S6 = 1;
+  64   1          S7 = 1;
+  65   1              while(1)
+  66   1          {
+  67   2              if(S7 == 0)
+  68   2              {
+  69   3                    delay(5);//小段延时 进行消抖
+  70   3                if(S7 == 0)
+  71   3                        {
+  72   4                                 P0 = temp[0];
+  73   4                             U6suocun();
+  74   4                }                             
+  75   3              }
+  76   2              if(S6 == 0)
+  77   2              {
+  78   3                delay(5);//小段延时 进行消抖
+  79   3                if(S6 == 0)
+  80   3                        {
+  81   4                                 P0 = temp[1];
+  82   4                             U6suocun();
+  83   4                }             
+  84   3              }
+  85   2              if(S5 == 0)
+  86   2              {
+  87   3                delay(5);//小段延时 进行消抖
+  88   3                if(S5 == 0)
+  89   3                        {
+  90   4                                 P0 = temp[2];
+  91   4                             U6suocun();
+  92   4                }               
+  93   3              }
+  94   2              if(S4 == 0)
+  95   2              {
+  96   3                 delay(5);//小段延时 进行消抖
+  97   3                if(S4 == 0)
+  98   3                        {
+  99   4                                 P0 = temp[3];
+ 100   4                             U6suocun();
+ 101   4                }             
+ 102   3              }
+ 103   2      
+ 104   2          }
+ 105   1      }
+*** WARNING C280 IN LINE 54 OF ex4.c: 'i': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    138    ----
+   CONSTANT SIZE    =      4    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.52.0.0   EX4                                                               08/23/2015 15:03:50 PAGE 3   
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

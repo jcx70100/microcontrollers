@@ -1,0 +1,61 @@
+C51 COMPILER V9.52.0.0   EX1                                                               08/21/2015 15:56:57 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE EX1
+OBJECT MODULE PLACED IN ex1.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\C51\BIN\C51.EXE ex1.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*******************************************************************************  
+   2          * 文件名称：LED闪烁实验  
+   3          * 实验目的：1.掌握单片机IO口操作的基本方法
+   4          *           2.掌握软件延时函数的设计方法
+   5          * 程序说明：LED以0.2S为间隔亮灭(STC89C52RC单片机)  J13选择为IO方式
+   6          * 日期版本：NUAA  2015-8
+   7          *******************************************************************************/
+   8          
+   9          #include "reg52.h"  //定义51单片机特殊功能寄存器
+  10          
+  11          //延时函数 软件延时
+  12          void delay(void)
+  13          {
+  14   1          unsigned char i,j,k;
+  15   1          for(i=0; i<20; i++)
+  16   1          {
+  17   2              for(j=0; j<20; j++)
+  18   2              {
+  19   3                  for(k=0; k<248; k++);
+  20   3              }
+  21   2          } 
+  22   1      }
+  23          
+  24          //主函数
+  25          void main(void)
+  26          {
+  27   1          while(1)
+  28   1          {
+  29   2              P2 = ((P2&0x1f)|0x80);
+  30   2                      P0 = 0xff;  //LED熄灭
+  31   2                      P2 &= 0x1f;
+  32   2              delay();
+  33   2              P2 = ((P2&0x1f)|0x80);
+  34   2                      P0 = 0x00;  //LED点亮
+  35   2                      P2 &= 0x1f;
+  36   2              delay();
+  37   2          }
+  38   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     55    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
